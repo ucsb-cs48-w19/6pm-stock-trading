@@ -1,1 +1,0 @@
-Hey team! I'm Glennie, a Junior here at UCSB. Super excited to work with you guys on this! A little about me - I love being outdoors, hanging out with friends, and finding new food spots. An idea I have for our project is creating a feature that will help users choose a stock to buy based on moving averages or some other statiscal means. 
