@@ -1,0 +1,1 @@
+My name is Sassan Hashemi. I am a 2nd year computer science major from Cupertino, California (the home of Apple!). I enjoy playing soccer and really doing anything outdoors, which is part of the reason I came to UCSB (the awesome weather). I am really interested in finance and investments, which is why I am excited to be working with the stock trading team.
