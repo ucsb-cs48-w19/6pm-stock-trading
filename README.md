@@ -19,6 +19,8 @@ Install Python 3.7
 pip install flask
 Install PostgreSQL
 Install flask-sqlalchemy
+[Bootstrap 3 Reference](https://getbootstrap.com/docs/3.3/components/ "Bootstrap 3 Reference")
+https://getbootstrap.com/docs/3.3/components/
 
 ### Gems
 
