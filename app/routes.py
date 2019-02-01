@@ -14,9 +14,22 @@ def about():
 def dashboard():
   return render_template("dashboard.html")
 
+
 @app.route("/personal-info")
 def personal_info():
   return render_template("personal-info.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+    
+@app.route("/login", methods = ['GET', 'POST'])
+def authenticate_user():
+	print("Login Processing ") 
+	return render_template("index.html")
+
+	#process user data from the post request
+
 
 
 
