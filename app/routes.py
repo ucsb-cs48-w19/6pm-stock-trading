@@ -2,6 +2,11 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:trader@localhost/db'
+db.init_app(app)
+
+app.secret_key = "development-key"
+
 @app.route("/")
 def index():
   return render_template("index.html")
