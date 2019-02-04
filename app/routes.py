@@ -46,6 +46,11 @@ def signup():
   elif request.method == "GET":
     return render_template('signup.html', form=form)
 
+@app.route("/logout")
+def logout():
+  session.pop('email', None)
+  return redirect(url_for('index'))
+
 
 if __name__ == "__main__":
   app.run(debug=True)
