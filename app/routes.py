@@ -25,6 +25,15 @@ def dashboard():
 def personal_info():
   return render_template("personal-info.html")
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/login", methods = ['GET', 'POST'])
+def authenticate_user():
+	print("Login Processing ")
+	return render_template("index.html")
+
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
   if 'email' in session:
