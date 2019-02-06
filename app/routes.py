@@ -25,14 +25,15 @@ def dashboard():
 def personal_info():
   return render_template("personal-info.html")
 
-@app.route("/login")
+@app.route("/login", methods = ['GET', 'POST'])
 def login():
+  if request.method == "GET":
     return render_template("login.html")
 
-@app.route("/login", methods = ['GET', 'POST'])
-def authenticate_user():
-	print("Login Processing ")
-	return render_template("index.html")
+  elif request.method == "POST":
+    #Returns a dictionary of the email and password of the user.
+    print(request.form.to_dict())
+    return render_template("index.html")
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
