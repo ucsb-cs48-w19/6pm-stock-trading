@@ -5,35 +5,42 @@ from forms import SignupForm
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:trader@localhost/db'
+db.app = app
 db.init_app(app)
 
 app.secret_key = "development-key"
+
 
 @app.route("/")
 def index():
   return render_template("index.html")
 
+
 @app.route("/about")
 def about():
   return render_template("about.html")
+
 
 @app.route("/dashboard")
 def dashboard():
   return render_template("dashboard.html")
 
+
 @app.route("/personal-info")
 def personal_info():
   return render_template("personal-info.html")
 
-@app.route("/login", methods = ['GET', 'POST'])
+
+@app.route("/login", methods=['GET', 'POST'])
 def login():
   if request.method == "GET":
     return render_template("login.html")
 
   elif request.method == "POST":
-    #Returns a dictionary of the email and password of the user.
+    # Returns a dictionary of the email and password of the user.
     print(request.form.to_dict())
     return render_template("index.html")
+
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
@@ -55,6 +62,7 @@ def signup():
 
   elif request.method == "GET":
     return render_template('signup.html', form=form)
+
 
 @app.route("/logout")
 def logout():
