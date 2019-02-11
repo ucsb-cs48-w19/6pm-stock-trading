@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 from models import db, User
-from forms import SignupForm
+from forms import SignupForm, LoginForm
 
 app = Flask(__name__)
 
@@ -30,16 +30,29 @@ def personal_info():
   return render_template("personal-info.html")
 
 
-@app.route("/login", methods=['GET', 'POST'])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-  if request.method == "GET":
-    return render_template("login.html")
+  if 'email' in session:
+    return redirect(url_for('dashboard'))
 
-  elif request.method == "POST":
-    # Returns a dictionary of the email and password of the user.
-    print(request.form.to_dict())
-    return render_template("index.html")
+  form = LoginForm()
 
+  if request.method == "POST":
+    if form.validate() == False:
+      return render_template("login.html", form=form)
+    else:
+      email = form.email.data
+      password = form.password.data
+
+      user = User.query.filter_by(email=email).first()
+      if user is not None and user.check_password(password):
+        session['email'] = form.email.data
+        return redirect(url_for('dashboard'))
+      else:
+        return redirect(url_for('login'))
+
+  elif request.method == 'GET':
+    return render_template('login.html', form=form)
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
