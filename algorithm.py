@@ -247,12 +247,12 @@ for j in range(2,-1,-1):
         else:
             for ticker in portfolio.index:
                 volume = portfolio['amt'][ticker] / portfolio['price'][ticker]
-                profit = (closing_prices[ticker][-1] - portfolio['price'][ticker]) * volume
+                made = (closing_prices[ticker][-1] - portfolio['price'][ticker]) * volume
 
-                beta_score = -profit
+                beta_score = -made
                 
                 if (beta_score < 1):
-                    total_capital = total_capital + profit
+                    total_capital = total_capital - beta_score
 
 
             counter = 0
