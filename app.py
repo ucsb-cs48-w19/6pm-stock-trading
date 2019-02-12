@@ -28,7 +28,7 @@ def index():
 
 @app.route("/about")
 def about():
-  return render_template("about.htm/Users/maxginier/Desktop/ucsb_school/cmpsc_48/stock/6pm-stock-trading/routes.pyl")
+  return render_template("about.html")
 
 
 @app.route("/dashboard")
