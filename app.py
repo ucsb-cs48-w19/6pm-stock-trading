@@ -54,9 +54,8 @@ def login():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    #Commented out for faster debugging purposes................
-    #if 'email' in session:
-    #return redirect(url_for('dashboard'))
+  if 'email' in session:
+    return redirect(url_for('dashboard'))
 
   form = SignupForm()
 
