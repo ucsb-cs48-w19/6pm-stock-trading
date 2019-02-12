@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 #Added initializations for postgres hosting
-#app.config.from_object(os.environ['APP_SETTINGS'])
+app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -54,8 +54,9 @@ def login():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-  if 'email' in session:
-    return redirect(url_for('dashboard'))
+    #Commented out for faster debugging purposes................
+    #if 'email' in session:
+    #return redirect(url_for('dashboard'))
 
   form = SignupForm()
 
