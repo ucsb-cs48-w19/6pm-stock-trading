@@ -25,13 +25,17 @@ tickers = ['AAL','AAPL','ADBE','ADI','ADP','ADSK','ALGN','ALXN','AMAT',
           ]
 
 
-initial_investment = 100
+# for user in database:
+    # total_capital = user.getBalance()
+
+
+#will be pulled form database
 total_capital = 100
 
 #End date set to today's date
 
 
-todayDate = dt.date.today()
+todayDate = dt.date.today() - dt.timedelta(days=3)
 today = "" + str(todayDate.year) + "-" + str(todayDate.month) + "-" + str(todayDate.day)
 
 
@@ -39,7 +43,7 @@ today = "" + str(todayDate.year) + "-" + str(todayDate.month) + "-" + str(todayD
 
 #Start date set to 80 days before today
 
-startDate = dt.date.today() - dt.timedelta(days=80)
+startDate = dt.date.today() - dt.timedelta(days=80) - dt.timedelta(days=3)
 start = "" + str(startDate.year) + "-" + str(startDate.month) + "-" + str(startDate.day)
 
 
@@ -208,7 +212,6 @@ for j in range(2,-1,-1):
         #print(yesterday_buy)
         #print(today_buy)
         #print(daily_change)
-        print('----------------')
 
         yesterday_buy = today_buy
 
@@ -251,7 +254,7 @@ for j in range(2,-1,-1):
 
                 beta_score = -made
                 
-                if (beta_score < 1):
+                if (beta_score < .5):
                     total_capital = total_capital - beta_score
 
 
@@ -271,9 +274,10 @@ for j in range(2,-1,-1):
 
             
 
+
+    #push total_capital back to user.balance
+    #TODO LATER: push portfolio to database, replacing the portfolio thats currently there
             
-                
-                
                 
 
 
