@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for
-from forms import SignupForm, LoginForm
+from forms import SignupForm, LoginForm, InitialInvestmentForm
 
 #Added imports for postgres hsoting
 from flask_sqlalchemy import SQLAlchemy
@@ -43,9 +43,16 @@ def dashboard():
   return render_template("dashboard.html")
 
 
-@app.route("/personal-info")
+@app.route("/personal-info", methods=["GET", "POST"])
 def personal_info():
   return render_template("personal-info.html")
+
+  risk0 = request.form['risk0']
+  risk1 = request.form['risk1']
+  initial_investment = request.form['capital']
+
+
+  form = C()
 
 
 @app.route("/login", methods=["GET", "POST"])
