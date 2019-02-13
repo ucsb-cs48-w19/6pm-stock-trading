@@ -1,11 +1,22 @@
+import os
 from flask import Flask, render_template, request, session, redirect, url_for
-from models import db, User
-from forms import SignupForm
+
+#Added imports for postgres hsoting
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+#Added initializations for postgres hosting
+app.config.from_object(os.environ['APP_SETTINGS'])
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:trader@localhost/db'
-db.init_app(app)
+db = SQLAlchemy(app)
+from forms import SignupForm
+from models import *
+
+
+
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:trader@localhost/db'
+#db.init_app(app)
 
 app.secret_key = "development-key"
 

@@ -1,7 +1,9 @@
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 from werkzeug import generate_password_hash, check_password_hash
+#Imports for postgres hosting
+from app import db
 
-db = SQLAlchemy()
+#db = SQLAlchemy()
 
 
 class User(db.Model):
@@ -10,7 +12,7 @@ class User(db.Model):
     firstname = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
     email = db.Column(db.String(120), unique=True)
-    pwdhash = db.Column(db.String(54))
+    pwdhash = db.Column(db.String(100))
 
     def __init__(self, firstname, lastname, email, password):
         self.firstname = firstname.title()
@@ -23,3 +25,7 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.pwdhash, password)
+    #for postgresql hosting
+    def __repr__(self):
+        return '<uid {}>'.format(self.uid)
+
