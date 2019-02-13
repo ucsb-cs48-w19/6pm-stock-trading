@@ -1,58 +1,26 @@
 {% extends "layout.html" %}
 
 {% block content %}
+  <main class="container signup-section">
+    <div class="section-content">
+      <h2>Log in</h2>
 
-<div class = "container">
-	<form action="/login" method="POST">
-  		<div class = "login">
-  			<div class="form-group">
-    			<label for="email">Email address:</label>
-    			<input type="email" name="email" class="form-control" id="email" required>
-  			</div>
-  			<div class="form-group">
-    			<label for="pwd">Password:</label>
-    			<input type="password" name="password" class="form-control" id="pwd required">
-  			</div>
-  			<!--<div class="checkbox">
-    			<label><input type="checkbox"> Remember me</label>
- 			 </div>-->
-  				<button type="submit" value="Submit" class="btn btn-default">Login</button>
-		</div>
-	</form>
-</div>
+      <form method="POST" action="/login">
+        {{ form.hidden_tag() }}
 
-<!--<div class- "container">
-<form class = "form-group container input" action= "/login" method= "POST">
+        <div class="form-group">
+          {{ form.email.label }}
+          {{ form.email }}
+        </div>
 
-<div class = "form-row">
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-</div>
+        <div class="form-group">
+          {{ form.password.label }}
+          {{ form.password }}
+        </div>
 
-<div class = "form-row">
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required >
+        {{ form.submit(class="btn-primary") }}
 
-</div>
-<button class = "button-secondary"type="submit" value="Submit">Login</button>
-</form>
-</div>-->
-
-
-
-
+      </form>
+    </div>
+  </main>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
