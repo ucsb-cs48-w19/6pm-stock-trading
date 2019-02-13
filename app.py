@@ -33,7 +33,13 @@ def about():
 
 
 @app.route("/dashboard")
-def dashboard():
+def dashboard(): 
+  user = User.query.filter_by(email=email).first()
+  if user is not None and user.check_password(password):
+    initial_investment = session["initial_investment"]
+    balance = session["balance"]
+    change = balance-initial_investment
+    return render_template("dashboard.html", initial_investment=initial_investment, balance=balance, change=change)
   return render_template("dashboard.html")
 
 
@@ -82,7 +88,7 @@ def signup():
       db.session.commit()
 
       session['email'] = newuser.email
-      return redirect(url_for('dashboard'))
+      return redirect(url_for('personal-info.html'))
 
   elif request.method == "GET":
     return render_template('signup.html', form=form)
