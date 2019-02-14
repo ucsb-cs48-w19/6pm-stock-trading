@@ -18,6 +18,7 @@ This app will be completely hands off to the user. Users' accounts will be manag
 Install Python 3.7
 pip install flask
 Install PostgreSQL
+pip install -r requirements
 Install flask-sqlalchemy
 [Bootstrap 3 Reference](https://getbootstrap.com/docs/3.3/components/ "Bootstrap 3 Reference")
 https://getbootstrap.com/docs/3.3/components/
@@ -27,9 +28,12 @@ https://getbootstrap.com/docs/3.3/components/
 TODO: List which gems you added to the project, and the purpose each gem serves in your app.
 
 ### Installation Steps
-
-TODO: Describe the installation process (making sure you mention `bundle install`).
-Instructions need to be such that a user can just copy/paste the commands to get things set up and running. 
+export APP_SETTINGS="config.DevelopmentConfig"
+export URL_SETTINGS="[name of your postgres database]"
+python migrate.py db init
+python migrate.py db migrate
+python migrate.py db upgrade
+python app.py
 
 
 ## Functionality
