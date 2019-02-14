@@ -16,19 +16,22 @@ class User(db.Model):
     initial_investment = db.Column(db.Float)
     balance = db.Column(db.Float)
 
-    def __init__(self, firstname, lastname, email, password):
+    def __init__(self, firstname, lastname, email, password, initial_investment):
         self.firstname = firstname.title()
         self.lastname = lastname.title()
         self.email = email.lower()
         self.set_password(password)
-        self.initial_investment = 0
-        self.balance = 0
+        self.initial_investment = initial_investment
+        self.balance = self.initial_investment
 
     def set_password(self, password):
         self.pwdhash = generate_password_hash(password)
-
+    
     def check_password(self, password):
         return check_password_hash(self.pwdhash, password)
+    
+    def check_hash(self, passwordHashed):
+        return self.pwdhash == passwordHashed
     #for postgresql hosting
     def __repr__(self):
         return '<uid {}>'.format(self.uid)

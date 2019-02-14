@@ -33,14 +33,19 @@ def about():
 
 
 @app.route("/dashboard")
-def dashboard(): 
-  user = User.query.filter_by(email=email).first()
-  if user is not None and user.check_password(password):
-    initial_investment = session["initial_investment"]
-    balance = session["balance"]
+def dashboard():
+  print('in dashboard')
+  user = User.query.filter_by(email=session['email']).first()
+  if user is not None:
+    initial_investment = user.initial_investment
+    balance = user.balance
     change = balance-initial_investment
-    return render_template("dashboard.html", initial_investment=initial_investment, balance=balance, change=change)
-  return render_template("dashboard.html")
+    print('numbers')
+    print(initial_investment, balance, change)
+    return render_template("dashboard.html", initial_investment=round(initial_investment, 2), balance=round(balance, 2), change=round(change, 2))
+  else:
+    return redirect(url_for('index'))
+#return render_template("dashboard.html")
 
 
 @app.route("/personal-info")
@@ -61,8 +66,10 @@ def login():
     else:
       email = form.email.data
       password = form.password.data
+      #print(email, '\n', password)
 
       user = User.query.filter_by(email=email).first()
+      #print(user, '\n', user.check_password(password))
       if user is not None and user.check_password(password):
         session['email'] = form.email.data
         return redirect(url_for('dashboard'))
@@ -83,12 +90,13 @@ def signup():
     if form.validate() == False:
       return render_template('signup.html', form=form)
     else:
-      newuser = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data)
+      newuser = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data, form.initial_investment.data)
       db.session.add(newuser)
       db.session.commit()
 
       session['email'] = newuser.email
-      return redirect(url_for('personal-info.html'))
+      session['password'] = newuser.pwdhash
+      return redirect(url_for('dashboard'))
 
   elif request.method == "GET":
     return render_template('signup.html', form=form)
