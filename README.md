@@ -34,7 +34,7 @@ Instructions need to be such that a user can just copy/paste the commands to get
 
 ## Functionality
 
-https://w19stocktrading-api-heroku.herokuapp.com 
+https://stock-6pm-final.herokuapp.com 
 
 
 ## Known Problems
