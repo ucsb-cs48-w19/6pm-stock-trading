@@ -289,7 +289,7 @@ for user in users:
     db.session.commit()
 
     #push total_capital back to user.balance
-    #TODO LATER: push portfolio to database, replacing the portfolio thats currently there
+    #To Do LATER: push portfolio to database, replacing the portfolio thats currently there
             
                 
 
