@@ -15,25 +15,22 @@ This app will be completely hands off to the user. Users' accounts will be manag
 
 ### Prerequisites
 
-Install Python 3.7
-pip install flask
-Install PostgreSQL
-pip install -r requirements
-Install flask-sqlalchemy
+1. Install Python 3.7
+2. pip install flask
+3. Install PostgreSQL
+4. pip install -r requirements
 [Bootstrap 3 Reference](https://getbootstrap.com/docs/3.3/components/ "Bootstrap 3 Reference")
 https://getbootstrap.com/docs/3.3/components/
 
-### Gems
 
-TODO: List which gems you added to the project, and the purpose each gem serves in your app.
 
 ### Installation Steps
-export APP_SETTINGS="config.DevelopmentConfig"
-export URL_SETTINGS="[name of your postgres database]"
-python migrate.py db init
-python migrate.py db migrate
-python migrate.py db upgrade
-python app.py
+1. `export APP_SETTINGS="config.DevelopmentConfig"`
+2. `export URL_SETTINGS="[name of your postgres database]"`
+3. `python migrate.py db init`
+4. `python migrate.py db migrate`
+5. `python migrate.py db upgrade`
+6. `python app.py`
 
 
 ## Functionality
@@ -43,13 +40,11 @@ https://stock-6pm-final.herokuapp.com
 
 ## Known Problems
 
-TODO: Describe any known issues, bugs, odd behaviors or code smells. 
-Provide steps to reproduce the problem and/or name a file or a function where the problem lives.
+1. The Python script has to manually run right now, we need to find a way to run the script automatically everyday in the background. Solution: Using Heroku add-on tool - Heroku Scheduler to deploy and run the script on heroku.
 
 
 ## Contributing
 
-TODO: Leave the steps below if you want others to contribute to your project.
 
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
