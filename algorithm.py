@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-#TODO: push the daily portfolio dataframe into the database so that users may see which equities
+#To Do: push the daily portfolio dataframe into the database so that users may see which equities
 # their stocks are allocated in
 
 from pandas_datareader import data
