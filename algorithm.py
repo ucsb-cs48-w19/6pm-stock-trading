@@ -1,7 +1,8 @@
 
 # coding: utf-8
 
-
+#TODO: push the daily portfolio dataframe into the database so that users may see which equities
+# their stocks are allocated in
 
 from pandas_datareader import data
 import pandas as pd
@@ -264,7 +265,7 @@ for user in users:
 
                     beta_score = -made
                     
-                    if (beta_score < .5):
+                    if (beta_score < 1):
                         total_capital = total_capital - beta_score
 
 
