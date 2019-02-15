@@ -45,7 +45,8 @@ https://stock-6pm-final.herokuapp.com
 
 TODO: Describe any known issues, bugs, odd behaviors or code smells. 
 Provide steps to reproduce the problem and/or name a file or a function where the problem lives.
-
+1. The Python script has to manually run right now, we need to find a way to run the script automatically everyday in the background.
+   Solution: Using Heroku add-on tool - Heroku Scheduler to deploy and run the script on heroku.
 
 ## Contributing
 
