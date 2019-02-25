@@ -33,6 +33,13 @@ https://getbootstrap.com/docs/3.3/components/
 6. `python app.py`
 
 
+### Issues
+1. `rm -r migrations/`
+2. Delete database tables in psql with 
+      `drop table alembic_version;`
+      `drop table users;`
+3. Redo Installation Steps 3 - 6    
+
 ## Functionality
 
 https://stock-6pm-final.herokuapp.com 
