@@ -22,7 +22,7 @@ This app will be completely hands off to the user. Users' accounts will be manag
 1. Install Python 3.7
 2. pip install flask
 3. Install PostgreSQL
-4. pip install -r requirements
+4. pip install -r requirements.txt
 [Bootstrap 3 Reference](https://getbootstrap.com/docs/3.3/components/ "Bootstrap 3 Reference")
 https://getbootstrap.com/docs/3.3/components/
 
