@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, session, redirect, url_for
 from forms import SignupForm, LoginForm
+from flask_login import LoginManager, login_required
 
 #Added imports for postgres hsoting
 from flask_sqlalchemy import SQLAlchemy
@@ -9,6 +10,7 @@ app = Flask(__name__)
 #Added initializations for postgres hosting
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+login = LoginManager(app)
 
 db = SQLAlchemy(app)
 from forms import SignupForm
@@ -20,6 +22,9 @@ from models import *
 #db.init_app(app)
 
 app.secret_key = "development-key"
+@login.user_loader
+def load_user(id):
+    return User.query.get(int(id))
 
 
 @app.route("/")
@@ -33,6 +38,7 @@ def about():
 
 
 @app.route("/dashboard")
+@login_required
 def dashboard():
   print('in dashboard')
   user = User.query.filter_by(email=session['email']).first()
@@ -55,8 +61,8 @@ def personal_info():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-  if 'email' in session:
-    return redirect(url_for('dashboard'))
+  if current_user.is_authenticated:
+    return redirect(Url_for('index'))
 
   form = LoginForm()
 
@@ -72,8 +78,13 @@ def login():
       #print(user, '\n', user.check_password(password))
       if user is not None and user.check_password(password):
         session['email'] = form.email.data
-        return redirect(url_for('dashboard'))
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+          next_page = url_for('index')
+        return redirect(next_page)
       else:
+        flash('Invalid Username or Password')
         return redirect(url_for('login'))
 
   elif request.method == 'GET':
@@ -81,7 +92,7 @@ def login():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-  if 'email' in session:
+  if current_user.is_authenticated:
     return redirect(url_for('dashboard'))
 
   form = SignupForm()
@@ -93,6 +104,8 @@ def signup():
       newuser = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data, form.initial_investment.data)
       db.session.add(newuser)
       db.session.commit()
+      flash('Congratulations, you are now a registered user!')
+      
 
       session['email'] = newuser.email
       session['password'] = newuser.pwdhash
@@ -104,6 +117,7 @@ def signup():
 
 @app.route("/logout")
 def logout():
+  logout_user()
   session.pop('email', None)
   return redirect(url_for('index'))
 

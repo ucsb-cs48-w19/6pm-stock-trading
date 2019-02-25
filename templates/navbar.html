@@ -29,8 +29,11 @@
         <li><a href="/personal-info">Personal Information</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+        {%if current_user.is_anonymous %}
         <li><a href="/login">Login</a></li>
+        {% else %}
         <li><a href="/logout">Logout</a></li>
+        {% endif %}
         <li><form class="navbar-form navbar-left">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">

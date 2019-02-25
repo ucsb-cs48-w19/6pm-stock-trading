@@ -1,12 +1,13 @@
 #from flask_sqlalchemy import SQLAlchemy
 from werkzeug import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 #Imports for postgres hosting
-from app import db
+from app import db, login
 
 #db = SQLAlchemy()
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     uid = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(100))
@@ -38,4 +39,7 @@ class User(db.Model):
 
     def set_initial_investment(initial_investment):
         self.initial_investment = initial_investment
+
+
+
 
