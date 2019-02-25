@@ -9,7 +9,7 @@ from app import db, login
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    uid = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
     email = db.Column(db.String(120), unique=True)
@@ -35,10 +35,11 @@ class User(UserMixin, db.Model):
         return self.pwdhash == passwordHashed
     #for postgresql hosting
     def __repr__(self):
-        return '<uid {}>'.format(self.uid)
+        return '<id {}>'.format(self.id)
 
     def set_initial_investment(initial_investment):
         self.initial_investment = initial_investment
+
 
 
 
