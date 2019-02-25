@@ -13,3 +13,58 @@
     bottom: 0;
     width: 100%;
 }
+%message {
+	padding: 2em;
+
+	animation-name: fade-out, collapse;
+	animation-duration: 1s, 300ms;
+	animation-delay: 4s, 5s;
+	animation-fill-mode: both, both;
+
+	&:hover {
+		animation-play-state: paused;
+	}
+}
+
+
+
+%message {
+	padding: 2em;
+
+	animation-name: fade-out, collapse;
+	animation-duration: 1s, 300ms;
+	animation-delay: 4s, 5s;
+	animation-fill-mode: both, both;
+
+	&:hover {
+		animation-play-state: paused;
+	}
+}
+
+
+.flash-message {
+	@extend %message;
+	background-color: rgba(#E37800, 0.5);
+}
+
+@keyframes fade-out {
+	0% { 
+    opacity: 1; 
+  }
+	100% { 
+    opacity: 0;
+  }
+}
+
+@keyframes collapse {
+	0% { 
+    max-height: 200px;
+  }
+	100% { 
+    max-height: 0;
+    padding: 0;
+  }
+}
+
+
+
