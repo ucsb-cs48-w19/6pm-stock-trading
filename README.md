@@ -26,10 +26,10 @@ https://getbootstrap.com/docs/3.3/components/
 
 ### Installation Steps
 1. `export APP_SETTINGS="config.DevelopmentConfig"`
-2. `export URL_SETTINGS="[name of your postgres database]"`
-3. `python migrate.py db init`
-4. `python migrate.py db migrate`
-5. `python migrate.py db upgrade`
+2. `export DATABASE_URL="[name of your postgres database]"`
+3. `python manage.py db init`
+4. `python manage.py db migrate`
+5. `python manage.py db upgrade`
 6. `python app.py`
 
 
