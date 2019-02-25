@@ -1,5 +1,9 @@
 # 6pm-stock-trading
 
+Travis-CI status on Master Branch: <a href="https://travis-ci.org/ucsb-cs48-w19/6pm-stock-trading">
+<img src="https://travis-ci.org/ucsb-cs48-w19/6pm-stock-trading.svg?branch=master" alt="Build Status">
+</a>
+
 ## Project summary
 
 ### One-sentence description of the project
