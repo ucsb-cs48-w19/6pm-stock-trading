@@ -1,15 +1,14 @@
 #from flask_sqlalchemy import SQLAlchemy
 from werkzeug import generate_password_hash, check_password_hash
-from flask_login import UserMixin
 #Imports for postgres hosting
-from app import db, login
+from app import db
 
 #db = SQLAlchemy()
 
 
-class User(UserMixin, db.Model):
+class User(db.Model):
     __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
+    uid = db.Column(db.Integer, primary_key=True)
     firstname = db.Column(db.String(100))
     lastname = db.Column(db.String(100))
     email = db.Column(db.String(120), unique=True)
@@ -35,12 +34,8 @@ class User(UserMixin, db.Model):
         return self.pwdhash == passwordHashed
     #for postgresql hosting
     def __repr__(self):
-        return '<id {}>'.format(self.id)
+        return '<uid {}>'.format(self.uid)
 
     def set_initial_investment(initial_investment):
         self.initial_investment = initial_investment
-
-
-
-
 
