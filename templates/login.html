@@ -5,7 +5,7 @@
     <div class="section-content">
       <h2>Log in</h2>
 
-      <form method="POST" action="/login">
+      <form method="POST" action="{{ url_for('signin') }}">
         {{ form.hidden_tag() }}
 
         <div class="form-group">

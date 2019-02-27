@@ -1,18 +1,63 @@
 import os
-from flask import Flask, render_template, request, session, redirect, url_for
-from forms import SignupForm, LoginForm
-
+from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask_login import current_user, login_user, logout_user, LoginManager, login_required
+from flask_wtf import Form
+from wtforms import StringField, PasswordField, SubmitField, FloatField, BooleanField
+from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationError
+from werkzeug.urls import url_parse
 #Added imports for postgres hsoting
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+from models import *
 #Added initializations for postgres hosting
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+login = LoginManager(app)
+login.login_view = 'signin'
+@login.user_loader
+def user_loader(id):
+  return User.query.get(id)
 
 db = SQLAlchemy(app)
-from forms import SignupForm
-from models import *
+#from forms import SignupForm
+
+
+
+
+
+
+
+
+class SignupForm(Form):
+  first_name = StringField('First name', validators=[DataRequired("Please enter your first name.")])
+  last_name = StringField('Last name', validators=[DataRequired("Please enter your last name.")])
+  email = StringField('Email', validators=[DataRequired("Please enter your email address."), Email("Please enter your email address.")])
+  password = PasswordField('Password', validators=[DataRequired("Please enter a password."), Length(min=6, message="Passwords must be 6 characters or more.")])
+
+
+  initial_investment = FloatField('Initial Investment', validators=[DataRequired("Please enter an amount. ")])
+  
+  submit = SubmitField("Sign Up")
+
+
+  def validate_email(self, email):
+    user = User.query.filter_by(email=email.data).first()
+    if user is not None:
+      raise ValidationError('Please use a different email address')
+
+
+
+
+class LoginForm(Form):
+  email = StringField('Email', validators=[DataRequired("Please enter your email address."), Email("Please enter your email address.")])
+  password = PasswordField('Password', validators=[DataRequired("Please enter a password.")])
+  remember_me = BooleanField('Remember Me')
+  submit = SubmitField("Sign in")
+
+
+class CapitalForm(Form):
+  capital = StringField('Capital', validators=[DataRequired("Please enter a number.")])
 
 
 
@@ -33,9 +78,11 @@ def about():
 
 
 @app.route("/dashboard")
+@login_required
 def dashboard():
   print('in dashboard')
-  user = User.query.filter_by(email=session['email']).first()
+  user = current_user
+  #user = User.query.filter_by(email=session['email']).first()
   if user is not None:
     initial_investment = user.initial_investment
     balance = user.balance
@@ -54,12 +101,26 @@ def personal_info():
 
 
 @app.route("/login", methods=["GET", "POST"])
-def login():
-  if 'email' in session:
-    return redirect(url_for('dashboard'))
+def signin():
+  if current_user.is_authenticated:
+    return redirect(url_for('index'))
 
   form = LoginForm()
+  if form.validate_on_submit():
+    email = form.email.data
+    password = form.password.data
+    user = User.query.filter_by(email=email).first()
+    if user is None or not user.check_password(form.password.data):
+      flash('Invalid username or password')
+      return redirect(url_for('login'))
+    login_user(user, remember=form.remember_me.data)
+    flash('Welcome back, ' + current_user.firstname)
+    return redirect(url_for('dashboard'))
 
+  return render_template('login.html', form=form)
+
+
+'''
   if request.method == "POST":
     if form.validate() == False:
       return render_template("login.html", form=form)
@@ -71,17 +132,22 @@ def login():
       user = User.query.filter_by(email=email).first()
       #print(user, '\n', user.check_password(password))
       if user is not None and user.check_password(password):
-        session['email'] = form.email.data
-        return redirect(url_for('dashboard'))
+    
+        login_user(user, remember=form.remember_me.data)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+          next_page = url_for('index')
+        return redirect(next_page)
       else:
+        flash('Invalid Username or Password')
         return redirect(url_for('login'))
 
-  elif request.method == 'GET':
-    return render_template('login.html', form=form)
+  elif request.method == 'GET':'''
+    
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-  if 'email' in session:
+  if current_user.is_authenticated:
     return redirect(url_for('dashboard'))
 
   form = SignupForm()
@@ -93,9 +159,8 @@ def signup():
       newuser = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data, form.initial_investment.data)
       db.session.add(newuser)
       db.session.commit()
-
-      session['email'] = newuser.email
-      session['password'] = newuser.pwdhash
+      login_user(newuser)
+      flash("Welcome to our website! ", current_user.firstname)
       return redirect(url_for('dashboard'))
 
   elif request.method == "GET":
@@ -103,8 +168,11 @@ def signup():
 
 
 @app.route("/logout")
+@login_required
 def logout():
-  session.pop('email', None)
+  name = current_user.firstname
+  logout_user()
+  flash(name +  ' has been logged out.')
   return redirect(url_for('index'))
 
 

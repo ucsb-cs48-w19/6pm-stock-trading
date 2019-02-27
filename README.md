@@ -1,5 +1,9 @@
 # 6pm-stock-trading
 
+Travis-CI status on Master Branch: <a href="https://travis-ci.org/ucsb-cs48-w19/6pm-stock-trading">
+<img src="https://travis-ci.org/ucsb-cs48-w19/6pm-stock-trading.svg?branch=master" alt="Build Status">
+</a>
+
 ## Project summary
 
 ### One-sentence description of the project
@@ -18,7 +22,7 @@ This app will be completely hands off to the user. Users' accounts will be manag
 1. Install Python 3.7
 2. pip install flask
 3. Install PostgreSQL
-4. pip install -r requirements
+4. pip install -r requirements.txt or pip3 install -r requirements.txt
 [Bootstrap 3 Reference](https://getbootstrap.com/docs/3.3/components/ "Bootstrap 3 Reference")
 https://getbootstrap.com/docs/3.3/components/
 
@@ -26,12 +30,19 @@ https://getbootstrap.com/docs/3.3/components/
 
 ### Installation Steps
 1. `export APP_SETTINGS="config.DevelopmentConfig"`
-2. `export URL_SETTINGS="[name of your postgres database]"`
-3. `python migrate.py db init`
-4. `python migrate.py db migrate`
-5. `python migrate.py db upgrade`
+2. `export DATABASE_URL="[name of your postgres database]"`
+3. `python manage.py db init`
+4. `python manage.py db migrate`
+5. `python manage.py db upgrade`
 6. `python app.py`
 
+
+### Issues
+1. `rm -r migrations/`
+2. Delete database tables in psql with 
+      `drop table alembic_version;`
+      `drop table users;`
+3. Redo Installation Steps 3 - 6    
 
 ## Functionality
 
