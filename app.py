@@ -9,17 +9,23 @@ from werkzeug.urls import url_parse
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-from models import *
+
 #Added initializations for postgres hosting
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 login = LoginManager(app)
 login.login_view = 'signin'
 @login.user_loader
 def user_loader(id):
   return User.query.get(id)
+from models import *
 
-db = SQLAlchemy(app)
+
+
+
+
 #from forms import SignupForm
 
 
@@ -112,7 +118,7 @@ def signin():
     user = User.query.filter_by(email=email).first()
     if user is None or not user.check_password(form.password.data):
       flash('Invalid username or password')
-      return redirect(url_for('login'))
+      return redirect(url_for('signin'))
     login_user(user, remember=form.remember_me.data)
     flash('Welcome back, ' + current_user.firstname)
     return redirect(url_for('dashboard'))
