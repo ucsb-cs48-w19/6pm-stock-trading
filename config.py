@@ -1,6 +1,11 @@
 import os 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+def fact(n):
+    if n == 0:
+        return 1
+    return n * fact(n -1)
+
 class Config(object):
     #Added for postgres hosting?
     DEBUG = False
@@ -33,6 +38,6 @@ class DevelopmentConfig(Config):
 
 
 class TestingConfig(Config):
-    TESTING = False
+    TESTING = True
 
 #^^^
