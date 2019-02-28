@@ -4,6 +4,12 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
+  - export APP_SETTINGS="config.DevelopmentConfig"
+  - export DATABASE_URL="postgresql://postgres:postgres@localhost/DBNAME"
+  - python manage.py db init
+  - rm - r migrations
+  - python manage.py db migrate
+  - python manage.py db upgrade
 # command to run tests
 script:
   - pytest
