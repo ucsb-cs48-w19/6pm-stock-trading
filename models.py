@@ -16,6 +16,7 @@ class User(UserMixin, db.Model):
     pwdhash = db.Column(db.String(100))
     initial_investment = db.Column(db.Float)
     balance = db.Column(db.Float)
+    risk = db.Column(db.Boolean)
 
     def __init__(self, firstname, lastname, email, password, initial_investment):
         self.firstname = firstname.title()
@@ -24,6 +25,7 @@ class User(UserMixin, db.Model):
         self.set_password(password)
         self.initial_investment = initial_investment
         self.balance = self.initial_investment
+        self.risk = False
 
     def set_password(self, password):
         self.pwdhash = generate_password_hash(password)
