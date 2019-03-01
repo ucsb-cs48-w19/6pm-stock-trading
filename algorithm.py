@@ -13,6 +13,7 @@ from models import *
 
 #Declare the tickers here that you hope to include
 
+#Roughly the NASDAQ 100
 tickers = ['AAL','AAPL','ADBE','ADI','ADP','ADSK','ALGN','ALXN','AMAT',
            'AMD','AMGN','AMZN','ASML','ATVI','AVGO','BIDU','BIIB',
            'BKNG','BMRN','CDNS','CELG','CERN','CHKP','CHTR','CMCSA',
@@ -39,7 +40,7 @@ tickers = ['AAL','AAPL','ADBE','ADI','ADP','ADSK','ALGN','ALXN','AMAT',
 #End date set to today's date
 
 
-todayDate = dt.date.today() - dt.timedelta(days=3)
+todayDate = dt.date.today()
 today = "" + str(todayDate.year) + "-" + str(todayDate.month) + "-" + str(todayDate.day)
 
 
@@ -47,7 +48,7 @@ today = "" + str(todayDate.year) + "-" + str(todayDate.month) + "-" + str(todayD
 
 #Start date set to 80 days before today
 
-startDate = dt.date.today() - dt.timedelta(days=80) - dt.timedelta(days=3)
+startDate = dt.date.today() - dt.timedelta(days=80)
 start = "" + str(startDate.year) + "-" + str(startDate.month) + "-" + str(startDate.day)
 
 
@@ -262,13 +263,9 @@ for user in users:
                 for ticker in portfolio.index:
                     volume = portfolio['amt'][ticker] / portfolio['price'][ticker]
                     made = (closing_prices[ticker][-1] - portfolio['price'][ticker]) * volume
-
                     beta_score = -made
-                    
                     if (beta_score < 1):
-                        total_capital = total_capital - beta_score
-
-
+                        total_capital = total_capital - (beta_score/5)
                 counter = 0
                 portfolio = pd.DataFrame()
                 for ticker in portfolio_stocks:
@@ -284,11 +281,10 @@ for user in users:
 
 
             
-
+    #push total capital back to user
     user.balance = total_capital
     db.session.commit()
 
-    #push total_capital back to user.balance
     #To Do LATER: push portfolio to database, replacing the portfolio thats currently there
             
                 
