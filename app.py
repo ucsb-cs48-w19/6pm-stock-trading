@@ -79,8 +79,8 @@ app.secret_key = "development-key"
 
 @app.route("/")
 def index():
-  graphImg = graphMaker()
-  return render_template("index.html", graphImg = graphImg)
+  #graphImg = graphMaker()
+  return render_template("index.html")
 
 
 @app.route("/about")
