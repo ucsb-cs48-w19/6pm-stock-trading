@@ -3,15 +3,6 @@
         <h4>
           Stock Trading
           <small class="text-muted">Mock Investment Portfolio</small>
-  {% with messages = get_flashed_messages() %}
-  {% if messages %}
-    
-    {% for message in messages %}
-      <span class="alert alert-info flash-message" role="alert">{{ message }}</span>
-    {% endfor %}
-    
-  {% endif %}
-{% endwith %}
         </h4>
       </div>
     </header>
@@ -55,3 +46,14 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+<div class="container-fluid">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    
+    {% for message in messages %}
+      <div class="alert alert-info flash-message" role="alert">{{ message }}</div>
+    {% endfor %}
+    
+  {% endif %}
+{% endwith %}
+</div>
