@@ -18,13 +18,13 @@ class User(UserMixin, db.Model):
     balance = db.Column(db.Float)
     risk = db.Column(db.Boolean)
 
-    def __init__(self, firstname, lastname, email, password, initial_investment):
+    def __init__(self, firstname, lastname, email, password):
         self.firstname = firstname.title()
         self.lastname = lastname.title()
         self.email = email.lower()
         self.set_password(password)
-        self.initial_investment = initial_investment
-        self.balance = self.initial_investment
+        self.initial_investment = 0
+        self.balance = 0
         self.risk = False
 
     def set_password(self, password):
@@ -35,9 +35,9 @@ class User(UserMixin, db.Model):
     
     def check_hash(self, passwordHashed):
         return self.pwdhash == passwordHashed
-    #for postgresql hosting
+
     def __repr__(self):
         return '<id {}>'.format(self.id)
 
-    def set_initial_investment(initial_investment):
-        self.initial_investment = initial_investment
+    def set_risk(risk):
+        self.risk = risk

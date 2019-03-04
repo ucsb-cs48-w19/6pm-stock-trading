@@ -42,7 +42,7 @@ class SignupForm(Form):
   password = PasswordField('Password', validators=[DataRequired("Please enter a password."), Length(min=6, message="Passwords must be 6 characters or more.")])
 
 
-  initial_investment = FloatField('Initial Investment', validators=[DataRequired("Please enter an amount. ")])
+  initial_investment = FloatField('Initial Investment')
   
   submit = SubmitField("Sign Up")
 
@@ -62,8 +62,11 @@ class LoginForm(Form):
   submit = SubmitField("Sign in")
 
 
-class CapitalForm(Form):
-  capital = StringField('Capital', validators=[DataRequired("Please enter a number.")])
+class PersonalInfo(Form):
+  initial_investment = FloatField('Initial Investment', validators=[DataRequired("Please enter an amount. ")])
+  risk = BooleanField('Risk')
+
+  submit = SubmitField("Save")
 
 
 
@@ -95,15 +98,29 @@ def dashboard():
     change = balance-initial_investment
     print('numbers')
     print(initial_investment, balance, change)
-    return render_template("dashboard.html", initial_investment=round(initial_investment, 2), balance=round(balance, 2), change=round(change, 2))
+    return render_template("dashboard.html", initial_investment=round(initial_investment, 2), balance=round(balance, 2), change=round(change, 2), risk=user.risk)
   else:
     return redirect(url_for('index'))
 #return render_template("dashboard.html")
 
 
-@app.route("/personal-info")
+@app.route("/personal-info",  methods=["GET", "POST"])
 def personal_info():
-  return render_template("personal-info.html")
+  form = PersonalInfo()
+  if request.method == "POST":
+    if form.validate() == False:
+      return render_template('personal-info.html', form=form)
+    else:
+      current_user.initial_investment = form.initial_investment.data
+      current_user.balance = form.initial_investment.data
+      current_user.risk = form.risk.data
+      print '!!!!!!! ', form.risk.data
+      db.session.commit()
+      return redirect(url_for('dashboard'))
+
+  elif request.method == "GET":
+    return render_template('personal-info.html', form=form)
+
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -162,12 +179,12 @@ def signup():
     if form.validate() == False:
       return render_template('signup.html', form=form)
     else:
-      newuser = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data, form.initial_investment.data)
+      newuser = User(form.first_name.data, form.last_name.data, form.email.data, form.password.data)
       db.session.add(newuser)
       db.session.commit()
       login_user(newuser)
       flash("Welcome to our website! ", current_user.firstname)
-      return redirect(url_for('dashboard'))
+      return redirect(url_for('personal_info'))
 
   elif request.method == "GET":
     return render_template('signup.html', form=form)

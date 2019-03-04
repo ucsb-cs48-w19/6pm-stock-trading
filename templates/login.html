@@ -1,26 +1,40 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <main class="container signup-section">
+<main class="container">
     <div class="section-content">
-      <h2>Log in</h2>
+        <h2 class="section-content-center">Log In</h2>
 
-      <form method="POST" action="/login">
-        {{ form.hidden_tag() }}
+        <form method="POST" action="/login">
+            {{ form.hidden_tag() }}
 
-        <div class="form-group">
-          {{ form.email.label }}
-          {{ form.email }}
-        </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        {{ form.email.label }}
+                        <br/>
+                        <input type="email" autofocus class="form-control is-invalid" id="email" name="email"
+                               placeholder="Email" value="{{ form.email.data if form.email.data else '' }}"
+                               required="true">
+                    </div>
+                </div>
+            </div>
 
-        <div class="form-group">
-          {{ form.password.label }}
-          {{ form.password }}
-        </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        {{ form.password.label }}
+                        <br/>
+                        <input type="password" autofocus class="form-control is-invalid" id="password" name="password"
+                               placeholder="Password" value="{{ form.password.data if form.password.data else '' }}"
+                               required="true">
+                    </div>
+                </div>
+            </div>
 
-        {{ form.submit(class="btn-primary") }}
+            <button type="submit" class="btn btn-primary">Sign In</button>
 
-      </form>
+        </form>
     </div>
-  </main>
+</main>
 {% endblock %}
