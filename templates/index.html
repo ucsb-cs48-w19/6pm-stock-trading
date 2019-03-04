@@ -34,13 +34,27 @@
 			</div>
 
 		</div>
-<!--
+
 		<div class="row">
-			<div class="col-md-12">
-				<img class="float-center graph" src= "{{ graphImg }}">
+			<div class="panel panel-default graph">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Current Stock Market Overview 
+			    	<span id="clock"></span>
+			    </h3>
+			  </div>
+			  <div class="panel-body">
+			    <img class="img-responsive" src= "{{ graphUrl }}">
+			  </div>
 			</div>
 		</div>
--->
+		<!--
+		<div class="row">
+			<div class="col-md-12">
+				<img class="float-center" src= "{{ graphUrl }}">
+			</div>
+		</div>
+	-->
+
 	</div>
 			<!--<div class="jumbotron">
 				<h2>Start investing today.</h2>
@@ -55,5 +69,19 @@
 		</div>
 	</div>
 -->
+<script>
+  setInterval(function () {
 
+	  var clockElement = document.getElementById( "clock" );
+
+	  function updateClock ( clock ) {
+	    clock.innerHTML = new Date().toLocaleTimeString();
+	  }
+
+	  setInterval(function () {
+	      updateClock( clockElement );
+	  }, 1000);
+
+	}()); 
+</script>
 {% endblock %}

@@ -14,6 +14,10 @@
     width: 100%;
 }
 .graph{
-	    width: 100rem;
-    margin-top: -50rem;
+    
+    margin-top: -35rem;
+
+}
+.glyphicon{
+    margin-right: 10px;
 }
