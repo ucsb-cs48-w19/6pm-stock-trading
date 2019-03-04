@@ -1,3 +1,4 @@
+import os
 from pandas_datareader import data
 import pandas as pd
 import datetime as dt
@@ -28,8 +29,12 @@ def graphMaker():
     panel_data[['Open', 'Adj Close']].plot(figsize=(15, 5))
     plt.title('Recent 30 Days Stock Trading')
     plt.plot()
+    
     plt.savefig('static/plot.png')
     print('plot saved')
+    plt.close()
+    
+    
     
 
 
