@@ -7,32 +7,37 @@ tickers = ['^NDX']
 
 
 # In[31]:
-
-todayDate = dt.date.today()
-today = "" + str(todayDate.year) + "-" + str(todayDate.month) + "-" + str(todayDate.day)
-
-
-# Start date set to 30 days before today
-
-startDate = dt.date.today() - dt.timedelta(days=40)
-start = "" + str(startDate.year) + "-" + str(startDate.month) + "-" + str(startDate.day)
+def graphMaker():
+    filePath = 'static/plot.png'
+    todayDate = dt.date.today()
+    today = "" + str(todayDate.year) + "-" + str(todayDate.month) + "-" + str(todayDate.day)
 
 
-# pull data from yahoo finance
+    # Start date set to 30 days before today
 
-panel_data = data.DataReader(tickers, 'yahoo', start, today)
-closing_prices = pd.DataFrame()
-# print(panel_data['Close'])
-# print(panel_data.info())
-panel_data[['Open', 'Adj Close']].plot(figsize=(15, 5))
-plt.title('Recent 30 Days Stock Trading')
-plt.show()
+    startDate = dt.date.today() - dt.timedelta(days=40)
+    start = "" + str(startDate.year) + "-" + str(startDate.month) + "-" + str(startDate.day)
 
 
-for ticker in tickers:
-    # print(ticker)
-    ticker_table = panel_data['Adj Close'][ticker]
-    closing_prices[ticker] = ticker_table
+    # pull data from yahoo finance
+
+    panel_data = data.DataReader(tickers, 'yahoo', start, today)
+    closing_prices = pd.DataFrame()
+    # print(panel_data['Close'])
+    # print(panel_data.info())
+    panel_data[['Open', 'Adj Close']].plot(figsize=(15, 5))
+    plt.title('Recent 30 Days Stock Trading')
+    plt.plot()
+    plt.savefig('static/plot.png')
+    print('plot saved')
+    
+
+
+    for ticker in tickers:
+        # print(ticker)
+        ticker_table = panel_data['Adj Close'][ticker]
+        closing_prices[ticker] = ticker_table
+    return filePath
     # print(ticker_table)
     # print(closing_prices[ticker])
 
@@ -69,3 +74,5 @@ for ticker in tickers:
 
 # fig = go.Figure(data=data, layout=layout)
 # py.iplot(fig, filename='simple_candlestick')
+if __name__== "__main__":
+    graphMaker()

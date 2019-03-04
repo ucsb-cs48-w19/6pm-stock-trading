@@ -7,6 +7,7 @@ from wtforms.validators import DataRequired, Email, Length, EqualTo, ValidationE
 from werkzeug.urls import url_parse
 #Added imports for postgres hsoting
 from flask_sqlalchemy import SQLAlchemy
+from graph import graphMaker
 
 app = Flask(__name__)
 
@@ -78,7 +79,8 @@ app.secret_key = "development-key"
 
 @app.route("/")
 def index():
-  return render_template("index.html")
+  graphImg = graphMaker()
+  return render_template("index.html", graphImg = graphImg)
 
 
 @app.route("/about")
