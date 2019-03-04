@@ -26,6 +26,7 @@
                 {%if current_user.is_anonymous %}
                 <li><a href="{{ url_for('signin') }}">Login</a></li>
                 {% else %}
+                <p class="navbar-text"><span class="glyphicon glyphicon-user"></span>Signed in as {{ current_user.firstname }}</p>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 {% endif %}
             </ul>

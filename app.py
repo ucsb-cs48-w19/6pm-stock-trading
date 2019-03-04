@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+import time
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, LoginManager, login_required
 from flask_wtf import Form
@@ -79,8 +81,8 @@ app.secret_key = "development-key"
 
 @app.route("/")
 def index():
-  #graphImg = graphMaker()
-  return render_template("index.html")
+  graphUrl = graphMaker()
+  return render_template("index.html", graphUrl=graphUrl)
 
 
 @app.route("/about")
