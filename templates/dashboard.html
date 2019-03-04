@@ -1,24 +1,78 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <main class="about-section">
-    <div class="container">
 
-    <font size= 5>
-		<center><h1>Dashboard</h1></center><br>
 
-		<p>Initial Investment:</p>
-		<p>${{ initial_investment }}</p><br>
-		<p>Account Value:</p>
-		<p>${{ balance }}</p><br>
-		<p>Gain/Loss:</p>
-		<p>${{ change }}</p><br>
-		<p>Risk:</p>
-		<p>{{ 'High Risk' if risk else 'Low Risk' }}</p><br>
+<div class="container">
+    <div class="section-content">
+        <h2 class="section-content-center">{{ current_user.firstname }}'s Dashboard</h2>
+        <hr/>
+        <br/>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-muted" style="color:#AAA">INITIAL INVESTMENT</p>
+                        <h2>
+                            ${{ initial_investment }}
+                        </h2>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-muted" style="color:#AAA">ACCOUNT VALUE</p>
+                        <h2>
+                            ${{ balance }}
+                            <span class="badge progress-bar-success" style="padding:6px 10px 6px 10px;">+3.5%</span><br>
+                        </h2>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-muted" style="color:#AAA">GAIN/LOSS</p>
+                        <h2>
+                            ${{ change }}
+                        </h2>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <p class="text-muted" style="color:#AAA">RISK LEVEL</p>
+                        <h2>
+                            {{ 'High' if risk else 'Low' }}
+                        </h2>
+                        <br/>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		
-	</font>
+        <br/>
+        <div class="row">
+            <div class="col-sm-3">
+                <a class="btn btn-lg btn-primary" href="{{ url_for('profile') }}" role="button">Withdraw Funds</a>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+        <h3 class="section-content-center">Market Overview</h3>
+        <hr/>
+        <br/>
 
     </div>
-  </main>
+</div>
 {% endblock %}
+
+
+# Thank you #name for using our service
+# We hope to see you back soon!
