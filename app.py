@@ -114,7 +114,7 @@ def personal_info():
       current_user.initial_investment = form.initial_investment.data
       current_user.balance = form.initial_investment.data
       current_user.risk = form.risk.data
-      print '!!!!!!! ', form.risk.data
+      print ('!!!!!!! ', form.risk.data)
       db.session.commit()
       return redirect(url_for('dashboard'))
 
