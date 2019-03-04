@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<main class="container">
+    <div class="section-content">
+        <h2 class="section-content-center">Withdraw Funds</h2>
+        <hr/>
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <h3>Are you sure you want to withdraw ${{ current_user.balance }} </h3>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-sm-7" style="color:#666;">
+                <ul>
+                    <li style="margin-bottom:16px">The available funds will be transferred to your linked bank account within three business days.</li>
+                    <li>This action is irreversible.</li>
+                </ul>
+                <br/>
+                <br/>
+                <a class="btn btn-lg btn-primary" href="{{ url_for('goodbye') }}" role="button">Confirm</a>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+{% endblock %}

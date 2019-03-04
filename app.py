@@ -187,11 +187,25 @@ def signup():
       db.session.add(newuser)
       db.session.commit()
       login_user(newuser)
-      flash("Welcome to our website! ", current_user.firstname)
+      flash("Account created successfully!")
       return redirect(url_for('personal_info'))
 
   elif request.method == "GET":
     return render_template('signup.html', form=form)
+
+@app.route("/withdraw_funds")
+@login_required
+def profile():
+  return render_template("withdraw-funds.html")
+
+@app.route("/goodbye")
+@login_required
+def goodbye():
+  db.session.delete(current_user)
+  db.session.commit()
+  logout_user()
+  flash('Funds transferred and account closed successfully!')
+  return render_template("goodbye.html")
 
 
 @app.route("/logout")
@@ -199,7 +213,7 @@ def signup():
 def logout():
   name = current_user.firstname
   logout_user()
-  flash(name +  ' has been logged out.')
+  flash('Successfully logged out')
   return redirect(url_for('index'))
 
 
