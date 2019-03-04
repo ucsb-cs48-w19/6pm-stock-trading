@@ -4,8 +4,22 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="1">
+          <list size="15">
             <item index="0" class="java.lang.String" itemvalue="vboxapi" />
+            <item index="1" class="java.lang.String" itemvalue="ptyprocess" />
+            <item index="2" class="java.lang.String" itemvalue="pytest" />
+            <item index="3" class="java.lang.String" itemvalue="pickleshare" />
+            <item index="4" class="java.lang.String" itemvalue="psycopg2-binary" />
+            <item index="5" class="java.lang.String" itemvalue="ipython" />
+            <item index="6" class="java.lang.String" itemvalue="wcwidth" />
+            <item index="7" class="java.lang.String" itemvalue="plotly" />
+            <item index="8" class="java.lang.String" itemvalue="pexpect" />
+            <item index="9" class="java.lang.String" itemvalue="python-editor" />
+            <item index="10" class="java.lang.String" itemvalue="Pygments" />
+            <item index="11" class="java.lang.String" itemvalue="retrying" />
+            <item index="12" class="java.lang.String" itemvalue="matplotlib" />
+            <item index="13" class="java.lang.String" itemvalue="prompt-toolkit" />
+            <item index="14" class="java.lang.String" itemvalue="pyparsing" />
           </list>
         </value>
       </option>

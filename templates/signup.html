@@ -1,76 +1,62 @@
 {% extends "layout.html" %}
 
 {% block content %}
-  <main class="container signup-section">
-    <div class="section-content">
-      <h2>Create an account</h2>
+<main class="container">
+    <div class="section-content-center">
+        <h2 class="section-content-center">Create account</h2>
 
-      <form method="POST" action="/signup">
-        {{ form.hidden_tag() }}
+        <form method="POST" action="/signup">
+            {{ form.hidden_tag() }}
+            <div class="row justify-content-center">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        {{ form.first_name.label }}
+                        <br/>
+                        <input type="text" autofocus class="form-control is-invalid" id="first_name" name="first_name"
+                               placeholder="First name" value="{{ form.first_name.data if form.first_name.data else '' }}" required="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        {{ form.last_name.label }}
+                        <br/>
+                        <input type="text" autofocus class="form-control" id="last_name" name="last_name" placeholder="Last name"
+                               value="{{ form.last_name.data if form.last_name.data else ''}}" required="true">
+                    </div>
+                </div>
+            </div>
 
-        <div class="form-group">
-          {{ form.first_name.label }}
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        {{ form.email.label }}
+                        <br/>
+                        <input type="email" autofocus class="form-control is-invalid" id="email" name="email"
+                               placeholder="Email" value="{{ form.email.data if form.email.data else '' }}" required="true">
+                    </div>
+                </div>
+            </div>
 
-          {% if form.first_name.errors %}
-            {% for error in form.first_name.errors %}
-              <p class="error-message">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        {{ form.password.label }}
+                        <br/>
+                        <input type="password" autofocus class="form-control is-invalid" id="password" name="password"
+                               placeholder="Password" value="{{ form.password.data if form.password.data else ''}}" required="true" aria-describedby="passwordHelpInline">
+                        {% if form.password.errors %}
+                            {% for error in form.password.errors %}
+                                <p class="error-message"><small class="text-danger">{{ error }}</small></p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
 
-          {{ form.first_name }}
-        </div>
-
-        <div class="form-group">
-          {{ form.last_name.label }}
-
-          {% if form.last_name.errors %}
-            {% for error in form.last_name.errors %}
-              <p class="error-message">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
-
-          {{ form.last_name }}
-        </div>
-
-        <div class="form-group">
-          {{ form.email.label }}
-
-          {% if form.email.errors %}
-            {% for error in form.email.errors %}
-              <p class="error-message">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
-
-          {{ form.email }}
-        </div>
-
-        <div class="form-group">
-          {{ form.password.label }}
-
-          {% if form.password.errors %}
-            {% for error in form.password.errors %}
-              <p class="error-message">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
-          {{ form.password }}
-        </div>
-          <div class="form-group">
-
-          {{ form.initial_investment.label }}
-
-          {% if form.initial_investment.errors %}
-            {% for error in form.initial_investment.errors %}
-              <p class="error-message">{{ error }}</p>
-            {% endfor %}
-          {% endif %}
-
-          {{ form.initial_investment }}
-        </div>
-
-          
-
-        {{ form.submit(class="btn-primary") }}
-      </form>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
     </div>
-  </main>
+</main>
 {% endblock %}

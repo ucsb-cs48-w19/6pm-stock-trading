@@ -1,47 +1,45 @@
-<!--
-
-<!DOCTYPE html>
-<html>
- <head>
-	 <title>Input Schedule</title>
-	 <#include "head.ftl" />
-	 <style type="text/css">
-		 body {background-color:SteelBlue}
-		 p {color:black}
-	 </style>
- </head>
- 
- <body>
-	 <#include "navbar.ftl" />
-	 <font size= 5>
-	 <center><h1>Input Schedule</h1></center>
-	<form action="ViewSchedule" method="get">
-		<center>last schedule tonight: <input  type ="time" name="sleep" value="22:30" > today </center><br>
-		<center>first schedule tomorrow: <input  type ="time" name="wakeup" value="06:30" > tomorrow </center><br>
-		<center><input type="submit" value="submit"></center>
-	</form>
-</font>
- </body>
-</html>
--->
-
 {% extends "layout.html" %}
 
 {% block content %}
+<main class="container">
+    <div class="section-content-center">
+        <h2 class="section-content-center">Investment Information</h2>
 
-		<font size= 5>
-		<center><h1>Investment Information</h1></center><br>
+        <br/>
 
-		<form action="EnterInformation" method="get">
-			<center>How much capital are you planning to invest:<br>$<input type ="number" name="capital" value="" > </center><br>
-			<center>How much risk would you like for your portfolio:</center>
-  				<center><input type="radio" name="risk" value="low" checked> Low <br></center>
-  				<center><input type="radio" name="risk" value="high"> High<br><br></center>
-			<center><input type="submit" value="submit"></center>
-		</form>
-		
-		</font>
- 	</body>
+        <form method="POST" action="/personal-info">
+            {{ form.hidden_tag() }}
+            <div class="row justify-content-center">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        {{ form.initial_investment.label }}
+                        <br/>
+                        <input type="text" autofocus class="form-control is-invalid" id="initial_investment"
+                               name="initial_investment"
+                               placeholder="Initial Investment"
+                               value="{{ form.initial_investment.data if form.initial_investment.data else '' }}"
+                               required="true">
+                    </div>
+                </div>
+            </div>
 
+            <br/>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label for="risk">High Risk Portfolio</label>
+                        <span style="margin-left:3px" class="text-muted">(default risk is low)</span><br/>
+
+                        {{form.risk}}
+                    </div>
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</main>
 
 {% endblock %}
