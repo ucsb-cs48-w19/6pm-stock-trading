@@ -1,18 +1,4 @@
-<header>
-    <div class="container">
-        <h4>
-            {% with messages = get_flashed_messages() %}
-            {% if messages %}
 
-            {% for message in messages %}
-            <span class="alert alert-info flash-message" role="alert">{{ message }}</span>
-            {% endfor %}
-
-            {% endif %}
-            {% endwith %}
-        </h4>
-    </div>
-</header>
 <!--<div class="page-header">
   <h1>Example page header <small>Subtext for header</small></h1>
 </div>-->
