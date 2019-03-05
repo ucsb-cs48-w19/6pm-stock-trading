@@ -1,7 +1,6 @@
 
 # coding: utf-8
 
-# In[1]:
 
 from pandas_datareader import data
 import pandas as pd
