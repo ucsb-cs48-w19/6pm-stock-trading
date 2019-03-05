@@ -26,8 +26,7 @@ tickers = ['AAL','AAPL','ADBE','ADI','ADP','ADSK','ALGN','ALXN','AMAT',
            'NVDA','NXPI','ORLY','PAYX','PCAR','PEP','PYPL','QCOM','REGN',
            'ROST','SBUX','SIRI','SNPS','SWKS','SYMC','TMUS','TSLA','TTWO',
            'TXN','UAL','ULTA','VRSK','VRSN','VRTX','WBA','WDAY','WDC',
-           'WLTW','WYNN','XEL','XLNX'
-           ]
+           'WLTW','WYNN','XEL','XLNX']
 
 
 
