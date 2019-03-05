@@ -100,9 +100,11 @@ def dashboard():
     initial_investment = user.initial_investment
     balance = user.balance
     change = balance-initial_investment
+    percent = change/initial_investment
     print('numbers')
     print(initial_investment, balance, change)
-    return render_template("dashboard.html", initial_investment=round(initial_investment, 2), balance=round(balance, 2), change=round(change, 2), risk=user.risk)
+    graphUrl = graphMaker()
+    return render_template("dashboard.html", initial_investment=round(initial_investment, 2), balance=round(balance, 2), change=round(change, 2), risk=user.risk, graphUrl=graphUrl, percent=percent)
   else:
     return redirect(url_for('index'))
 #return render_template("dashboard.html")

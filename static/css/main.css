@@ -13,11 +13,10 @@
     bottom: 0;
     width: 100%;
 }
-.graph{
-    
-    margin-top: -35rem;
 
-}
 .glyphicon{
     margin-right: 10px;
+}
+.warning{
+	text-decoration-color: red;
 }
