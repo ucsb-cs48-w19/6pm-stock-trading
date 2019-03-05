@@ -1,8 +1,7 @@
 
 # coding: utf-8
 
-#To Do: push the daily portfolio dataframe into the database so that users may see which equities
-# their stocks are allocated in
+# In[1]:
 
 from pandas_datareader import data
 import pandas as pd
@@ -11,22 +10,25 @@ from app import db
 from models import *
 
 
+# In[ ]:
+
 #Declare the tickers here that you hope to include
 
 #Roughly the NASDAQ 100
 tickers = ['AAL','AAPL','ADBE','ADI','ADP','ADSK','ALGN','ALXN','AMAT',
-           'AMD','AMGN','AMZN','ASML','ATVI','AVGO','BIDU','BIIB',
-           'BKNG','BMRN','CDNS','CELG','CERN','CHKP','CHTR','CMCSA',
-           'COST','CSX','CTAS','CTRP','CTSH','CTXS','DLTR','EA',
-           'EBAY','EXPE','FAST','FB','FISV','FOX','GILD','GOOG','HAS',
-           'HSIC','IDXX','ILMN','INCY','INTC','INTU','ISRG','JBHT',
-           'JD','KHC','KLAC','LBTYA','LRCX','LULU','MAR','MCHP','MDLZ',
-           'MELI','MNST','MSFT','MU','MXIM','MYL','NFLX','NTAP','NTES',
-           'NVDA','NXPI','ORLY','PAYX','PCAR','PEP','PYPL','QCOM','REGN',
-           'ROST','SBUX','SIRI','SNPS','SWKS','SYMC','TMUS','TSLA','TTWO',
-           'TXN','UAL','ULTA','VRSK','VRSN','VRTX','WBA','WDAY','WDC',
-           'WLTW','WYNN','XEL','XLNX'
-          ]
+   'AMD','AMGN','AMZN','ASML','ATVI','AVGO','BIDU','BIIB',
+   'BKNG','BMRN','CDNS','CELG','CERN','CHKP','CHTR','CMCSA',
+   'COST','CSX','CTAS','CTRP','CTSH','CTXS','DLTR','EA',
+   'EBAY','EXPE','FAST','FB','FISV','FOX','GILD','GOOG','HAS',
+   'HSIC','IDXX','ILMN','INCY','INTC','INTU','ISRG','JBHT',
+   'JD','KHC','KLAC','LBTYA','LRCX','LULU','MAR','MCHP','MDLZ',
+   'MELI','MNST','MSFT','MU','MXIM','MYL','NFLX','NTAP','NTES',
+   'NVDA','NXPI','ORLY','PAYX','PCAR','PEP','PYPL','QCOM','REGN',
+   'ROST','SBUX','SIRI','SNPS','SWKS','SYMC','TMUS','TSLA','TTWO',
+   'TXN','UAL','ULTA','VRSK','VRSN','VRTX','WBA','WDAY','WDC',
+   'WLTW','WYNN','XEL','XLNX'
+  ]
+
 
 
 
@@ -46,6 +48,7 @@ today = "" + str(todayDate.year) + "-" + str(todayDate.month) + "-" + str(todayD
 
 
 
+
 #Start date set to 80 days before today
 
 startDate = dt.date.today() - dt.timedelta(days=80)
@@ -56,13 +59,23 @@ start = "" + str(startDate.year) + "-" + str(startDate.month) + "-" + str(startD
 
 panel_data = data.DataReader(tickers,'yahoo', start, today)
 closing_prices = pd.DataFrame()
+
+
+
+
+
+
+
 #closing_prices.to_csv('closing_prices.csv')
 
 # for user in database:
 # total_capital = user.getBalance()
+
 users = User.query.all()
 for user in users:
     total_capital = user.balance
+    risk_level = user.risk
+
 
 
 
@@ -144,8 +157,6 @@ for user in users:
 
 
         #Setting a delta threshhold, this will determine the buy/sell threshold
-        # +threshold will initiate a buy
-        # -threshold will initiate a sell
 
         threshold = .0
 
@@ -164,14 +175,10 @@ for user in users:
 
         for ticker in moving_avg.index:
             delta = moving_avg['short_term_delta'][ticker]
-            
+
             #if delta > threshold:
             buy_ticker.append(ticker)
             buy_delta.append(delta)
-        
-            #elif delta < -1*threshold:
-    #            sell_ticker.append(ticker)
-    #            sell_delta.append(delta)
 
 
 
@@ -235,8 +242,12 @@ for user in users:
             portfolio_weight = []
             portfolio_amt = []
             portfolio_buy_price = []
+            if (risk_level == 1):
+                portfolio_size = 6
+            elif (risk_level == 0):
+                portfolio_size = 10
             for ticker in daily_change.index:
-                if counter < 10:
+                if counter < portfolio_size:
                     if (daily_change['daily_change'][ticker] > 0 and daily_change['daily_change_percent'][ticker] > 0):
                         portfolio_stocks.append(ticker)
                         portfolio_weight.append(daily_change['daily_change'][ticker])
@@ -264,7 +275,7 @@ for user in users:
                     volume = portfolio['amt'][ticker] / portfolio['price'][ticker]
                     made = (closing_prices[ticker][-1] - portfolio['price'][ticker]) * volume
                     beta_score = -made
-                    if (beta_score < 1):
+                    if (beta_score < .05):
                         total_capital = total_capital - (beta_score/5)
                 counter = 0
                 portfolio = pd.DataFrame()
@@ -272,23 +283,18 @@ for user in users:
                     amt = (portfolio_weight[counter] / sum(portfolio_weight)) * total_capital
                     portfolio_amt.append(amt)
                     counter += 1
-                
+
                 portfolio['ticker'] = portfolio_stocks
                 portfolio['amt'] = portfolio_amt
                 portfolio['price'] = portfolio_buy_price
 
                 portfolio = portfolio.set_index('ticker')
 
-
-            
     #push total capital back to user
     user.balance = total_capital
     db.session.commit()
 
     #To Do LATER: push portfolio to database, replacing the portfolio thats currently there
-            
-                
-
 
 
 
