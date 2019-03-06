@@ -46,14 +46,8 @@ https://getbootstrap.com/docs/3.3/components/
 
 ## Functionality
 
-https://stock-6pm-final.herokuapp.com 
+https://shark-tooth-trading.herokuapp.com/ 
 
-
-## Known Problems
-
-1. The Python script has to manually run right now, we need to find a way to run the script automatically everyday in the background.
-   Solution: Using Heroku add-on tool - Heroku Scheduler to deploy and run the script on heroku.
->>>>>>> b4bd40333a7f226157592d3c5ee8b0bea98c74bd
 
 ## Contributing
 
