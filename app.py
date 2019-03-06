@@ -101,10 +101,11 @@ def dashboard():
     balance = user.balance
     change = balance-initial_investment
     percent = change/initial_investment
+    pos = percent >= 0
     print('numbers')
     print(initial_investment, balance, change)
     graphUrl = graphMaker()
-    return render_template("dashboard.html", initial_investment=round(initial_investment, 2), balance=round(balance, 2), change=round(change, 2), risk=user.risk, graphUrl=graphUrl, percent=percent)
+    return render_template("dashboard.html", initial_investment=round(initial_investment, 2), balance=round(balance, 2), change=round(change, 2), risk=user.risk, graphUrl=graphUrl, percent = round(percent, 3), pos = pos)
   else:
     return redirect(url_for('index'))
 #return render_template("dashboard.html")
@@ -198,16 +199,18 @@ def signup():
 @app.route("/withdraw_funds")
 @login_required
 def profile():
-  return render_template("withdraw-funds.html")
+  balance = current_user.balance
+  return render_template("withdraw-funds.html", balance=round(balance, 2))
 
 @app.route("/goodbye")
 @login_required
 def goodbye():
+  name = current_user.firstname
   db.session.delete(current_user)
   db.session.commit()
   logout_user()
   flash('Funds transferred and account closed successfully!')
-  return render_template("goodbye.html")
+  return render_template("goodbye.html", name=name)
 
 
 @app.route("/logout")
