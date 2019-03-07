@@ -8,6 +8,12 @@ import base64
 tickers = ['^NDX']
 
 
+def getTempPath():
+    filePath = 'static/plot.png'
+    return filePath
+
+
+
 # In[31]:
 def graphMaker():
     filePath = 'static/plot.png'
