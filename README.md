@@ -21,10 +21,9 @@ This app will be completely hands off to the user. Users' accounts will be manag
 
 1. Install Python 3.7
 2. pip install flask
-3. Install PostgreSQL
+3. Install PostgreSQL [Postgres Installation](http://www.postgresqltutorial.com/install-postgresql/)
 4. pip install -r requirements.txt or pip3 install -r requirements.txt
-[Bootstrap 3 Reference](https://getbootstrap.com/docs/3.3/components/ "Bootstrap 3 Reference")
-https://getbootstrap.com/docs/3.3/components/
+
 
 
 
@@ -57,6 +56,11 @@ https://shark-tooth-trading.herokuapp.com/
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
+6. Good References:
+[Bootstrap 3 Reference](https://getbootstrap.com/docs/3.3/components/ "Bootstrap 3 Reference")
+https://getbootstrap.com/docs/3.3/components/
+https://medium.com/@dushan14/create-a-web-application-with-python-flask-postgresql-and-deploy-on-heroku-243d548335cc
+
 
 ## License
 
