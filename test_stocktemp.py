@@ -7,7 +7,7 @@ import datetime as dt
 import matplotlib.pyplot as plt
 import io
 import base64
-from graph import graphMaker
+from graph import getTempPath
 
 
 #def test_stocktemp_about():
@@ -15,5 +15,5 @@ from graph import graphMaker
     
 
 
-def test_stock():
-    assert(0 == 0)
+def test_stock_getTempPath():
+    assert(getTempPath() == 'static/plot.png')
