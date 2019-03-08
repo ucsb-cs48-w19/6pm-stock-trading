@@ -16,7 +16,8 @@ def getTempPath():
 
 # In[31]:
 def graphMaker():
-    filePath = 'static/plot.png'
+    #filePath = 'static/plot.png'
+    filePath = getTempPath()
     todayDate = dt.date.today()
     today = "" + str(todayDate.year) + "-" + str(todayDate.month) + "-" + str(todayDate.day)
 
